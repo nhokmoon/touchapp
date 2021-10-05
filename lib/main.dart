@@ -1,113 +1,162 @@
 import 'package:flutter/material.dart';
+import 'dart:async';
 
 void main() {
   runApp(MyApp());
 }
 
-class MyApp extends StatelessWidget {
-  // This widget is the root of your application.
+class MyApp extends StatefulWidget {
+  const MyApp({Key? key}) : super(key: key);
+
   @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        // This is the theme of your application.
-        //
-        // Try running your application with "flutter run". You'll see the
-        // application has a blue toolbar. Then, without quitting the app, try
-        // changing the primarySwatch below to Colors.green and then invoke
-        // "hot reload" (press "r" in the console where you ran "flutter run",
-        // or simply save your changes to "hot reload" in a Flutter IDE).
-        // Notice that the counter didn't reset back to zero; the application
-        // is not restarted.
-        primarySwatch: Colors.blue,
-      ),
-      home: MyHomePage(title: 'Flutter Demo Home Page'),
-    );
+  _TouchApp createState() => _TouchApp();
+}
+
+class _TouchApp extends State<MyApp> {
+  int number = 5;
+  Color? heartcolor = Colors.red[500];
+  int life = 5;
+  int yourlife = 0;
+  IconData icon = Icons.favorite;
+  int score = 0;
+  int tapping = 0;
+
+  int _counter = 10;
+  Timer? _timer;
+
+  @override
+  void initState() {
+    _startTimer();
+    super.initState();
   }
-}
 
-class MyHomePage extends StatefulWidget {
-  MyHomePage({Key? key, required this.title}) : super(key: key);
+  void _startTimer() {
+    _counter = 10;
+    _timer = Timer.periodic(Duration(seconds: 1), (timer) {
+      setState(() {
+        if (_counter > 0) {
+          _counter--;
+          yourlife = life;
+        } else {
+          if (tapping >= 10) {
+            _counter = 10;
+            tapping = 0;
+            life = yourlife;
+          } else {
+            if (life > 1) {
+              life--;
+              _counter = 10;
+            } else {
+              life = 5;
+              _stopTimer();
+            }
+          }
+        }
+      });
+    });
+  }
 
-  // This widget is the home page of your application. It is stateful, meaning
-  // that it has a State object (defined below) that contains fields that affect
-  // how it looks.
+  void _stopTimer() {
+    _timer?.cancel();
+  }
 
-  // This class is the configuration for the state. It holds the values (in this
-  // case the title) provided by the parent (in this case the App widget) and
-  // used by the build method of the State. Fields in a Widget subclass are
-  // always marked "final".
+  Color? changeState(int lifeactive) {
+    if (life >= lifeactive) {
+      heartcolor = Colors.red[500];
+    } else {
+      heartcolor = null;
+    }
+    return heartcolor;
+  }
 
-  final String title;
+  IconData changeIcon(int lifeactive) {
+    if (life >= lifeactive) {
+      icon = Icons.favorite;
+    } else {
+      icon = Icons.favorite_border;
+    }
+    return icon;
+  }
 
-  @override
-  _MyHomePageState createState() => _MyHomePageState();
-}
-
-class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
-
-  void _incrementCounter() {
+  void startGame() {
     setState(() {
-      // This call to setState tells the Flutter framework that something has
-      // changed in this State, which causes it to rerun the build method below
-      // so that the display can reflect the updated values. If we changed
-      // _counter without calling setState(), then the build method would not be
-      // called again, and so nothing would appear to happen.
-      _counter++;
+      tapping++;
+      if (tapping == 10) {
+        score++;
+      }
     });
   }
 
   @override
   Widget build(BuildContext context) {
-    // This method is rerun every time setState is called, for instance as done
-    // by the _incrementCounter method above.
-    //
-    // The Flutter framework has been optimized to make rerunning build methods
-    // fast, so that you can just rebuild anything that needs updating rather
-    // than having to individually change instances of widgets.
-    return Scaffold(
-      appBar: AppBar(
-        // Here we take the value from the MyHomePage object that was created by
-        // the App.build method, and use it to set our appbar title.
-        title: Text(widget.title),
-      ),
-      body: Center(
-        // Center is a layout widget. It takes a single child and positions it
-        // in the middle of the parent.
-        child: Column(
-          // Column is also a layout widget. It takes a list of children and
-          // arranges them vertically. By default, it sizes itself to fit its
-          // children horizontally, and tries to be as tall as its parent.
-          //
-          // Invoke "debug painting" (press "p" in the console, choose the
-          // "Toggle Debug Paint" action from the Flutter Inspector in Android
-          // Studio, or the "Toggle Debug Paint" command in Visual Studio Code)
-          // to see the wireframe for each widget.
-          //
-          // Column has various properties to control how it sizes itself and
-          // how it positions its children. Here we use mainAxisAlignment to
-          // center the children vertically; the main axis here is the vertical
-          // axis because Columns are vertical (the cross axis would be
-          // horizontal).
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Text(
-              'You have pushed the button this many times:',
-            ),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.headline4,
-            ),
-          ],
+    return MaterialApp(
+      home: Scaffold(
+        appBar: AppBar(
+          title: Text('TapTap'),
+        ),
+        body: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text(
+                'Score: ' + score.toString(),
+                style: TextStyle(fontSize: 20, color: Colors.blue[500]),
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Icon(
+                    changeIcon(1),
+                    size: 50,
+                    color: changeState(1),
+                  ),
+                  Icon(
+                    changeIcon(2),
+                    size: 50,
+                    color: changeState(2),
+                  ),
+                  Icon(
+                    changeIcon(3),
+                    size: 50,
+                    color: changeState(3),
+                  ),
+                  Icon(
+                    changeIcon(4),
+                    size: 50,
+                    color: changeState(4),
+                  ),
+                  Icon(
+                    changeIcon(5),
+                    size: 50,
+                    color: changeState(5),
+                  ),
+                ],
+              ),
+              Text(
+                'Time: ' + _counter.toString(),
+                style: TextStyle(fontSize: 25, color: Colors.red[300]),
+              ),
+              Text(
+                'Life: ' + life.toString(),
+                style: TextStyle(
+                  fontSize: 25,
+                  color: Colors.red[250],
+                ),
+              ),
+              Text(
+                'Tapped: ' + tapping.toString(),
+                style: TextStyle(fontSize: 30, color: Colors.purple[300]),
+              ),
+              ElevatedButton(
+                  onPressed: startGame,
+                  child: Text(
+                    'Tap me',
+                    style: TextStyle(fontSize: 25, color: Colors.white),
+                  ))
+            ],
+          ),
         ),
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: Icon(Icons.add),
-      ), // This trailing comma makes auto-formatting nicer for build methods.
     );
   }
 }
