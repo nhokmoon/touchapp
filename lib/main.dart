@@ -13,7 +13,6 @@ class MyApp extends StatefulWidget {
 }
 
 class _TouchApp extends State<MyApp> {
-  int number = 5;
   Color? heartcolor = Colors.red[500];
   int life = 5;
   IconData icon = Icons.favorite;
@@ -40,10 +39,10 @@ class _TouchApp extends State<MyApp> {
             _counter = 10;
             tapping = 0;
           } else {
-            if (life > 0) {
+            if (life > 1) {
               life--;
               _counter = 10;
-            } else if (life == 0) {
+            } else {
               _stopTimer();
             }
           }
@@ -78,6 +77,7 @@ class _TouchApp extends State<MyApp> {
     life = 5;
     _counter = 10;
     score = 0;
+    tapping = 0;
     setState(() {});
   }
 
@@ -168,6 +168,9 @@ class _TouchApp extends State<MyApp> {
               ),
               ElevatedButton(
                   onPressed: startagain,
+                  style: ElevatedButton.styleFrom(
+                    padding: EdgeInsets.all(10),
+                  ),
                   child: Text('Play Again',
                       style: TextStyle(
                           fontSize: 30, color: Colors.pinkAccent[700]))),
