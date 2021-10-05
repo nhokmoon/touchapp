@@ -16,11 +16,9 @@ class _TouchApp extends State<MyApp> {
   int number = 5;
   Color? heartcolor = Colors.red[500];
   int life = 5;
-  int yourlife = 0;
   IconData icon = Icons.favorite;
   int score = 0;
   int tapping = 0;
-
   int _counter = 10;
   Timer? _timer;
 
@@ -36,12 +34,10 @@ class _TouchApp extends State<MyApp> {
       setState(() {
         if (_counter > 0) {
           _counter--;
-          yourlife = life;
         } else {
           if (tapping >= 10) {
             _counter = 10;
             tapping = 0;
-            life = yourlife;
           } else {
             if (life > 1) {
               life--;
@@ -97,12 +93,12 @@ class _TouchApp extends State<MyApp> {
         body: Container(
           margin: EdgeInsets.all(30.0),
           decoration:
-              BoxDecoration(color: Colors.orange, shape: BoxShape.circle),
+              BoxDecoration(color: Colors.greenAccent, shape: BoxShape.circle),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Text(
-                'You Scored: ' + score.toString(),
+                'You Scored: ' + score.toString() + ' Point',
                 style: TextStyle(fontSize: 40, color: Colors.blue[400]),
               ),
               Row(
@@ -141,20 +137,28 @@ class _TouchApp extends State<MyApp> {
               ),
               Text(
                 'Life Left: ' + life.toString(),
-                style: TextStyle(fontSize: 25, color: Colors.red[300]),
+                style: TextStyle(fontSize: 25, color: Colors.purple[900]),
               ),
               Text(
                 'You Have Tap: ' +
                     tapping.toString() +
-                    ' Times in just 10 seconds',
+                    ' Times In Just 10 Seconds',
                 style: TextStyle(fontSize: 30, color: Colors.pinkAccent[700]),
               ),
               ElevatedButton(
-                  onPressed: startGame,
-                  child: Text(
-                    'Tap me',
-                    style: TextStyle(fontSize: 25, color: Colors.white),
-                  ))
+                onPressed: startGame,
+                style: ElevatedButton.styleFrom(
+                  shape: CircleBorder(),
+                  padding: EdgeInsets.all(30),
+                  primary: Colors.limeAccent[400],
+                  onPrimary: Colors.black12,
+                ),
+                child: Icon(
+                  Icons.add,
+                  color: Colors.white,
+                  size: 100.0,
+                ),
+              )
             ],
           ),
         ),
