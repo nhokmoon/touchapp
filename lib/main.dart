@@ -134,7 +134,7 @@ class _TouchApp extends State<MyApp> {
               ),
               Text(
                 'Time: ' + _counter.toString(),
-                style: TextStyle(fontSize: 25, color: Colors.red[300]),
+                style: TextStyle(fontSize: 25, color: Colors.blueAccent[300]),
               ),
               Text(
                 'Life: ' + life.toString(),
@@ -145,7 +145,7 @@ class _TouchApp extends State<MyApp> {
               ),
               Text(
                 'Tapped: ' + tapping.toString(),
-                style: TextStyle(fontSize: 30, color: Colors.purple[300]),
+                style: TextStyle(fontSize: 30, color: Colors.pinkAccent[300]),
               ),
               ElevatedButton(
                   onPressed: startGame,
