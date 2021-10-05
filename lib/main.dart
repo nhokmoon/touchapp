@@ -58,8 +58,8 @@ class _TouchApp extends State<MyApp> {
     _timer?.cancel();
   }
 
-  Color? changeState(int lifeactive) {
-    if (life >= lifeactive) {
+  Color? changeState(int lifelive) {
+    if (life >= lifelive) {
       heartcolor = Colors.red[500];
     } else {
       heartcolor = null;
@@ -67,8 +67,8 @@ class _TouchApp extends State<MyApp> {
     return heartcolor;
   }
 
-  IconData changeIcon(int lifeactive) {
-    if (life >= lifeactive) {
+  IconData changeIcon(int lifelive) {
+    if (life >= lifelive) {
       icon = Icons.favorite;
     } else {
       icon = Icons.favorite_border;
@@ -90,6 +90,8 @@ class _TouchApp extends State<MyApp> {
       tapping++;
       if (tapping == 10) {
         score++;
+        tapping = 0;
+        _counting = 10;
       }
     });
   }
