@@ -99,53 +99,52 @@ class _TouchApp extends State<MyApp> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Text(
-                'Score: ' + score.toString(),
-                style: TextStyle(fontSize: 20, color: Colors.blue[500]),
+                'You Scored: ' + score.toString(),
+                style: TextStyle(fontSize: 40, color: Colors.blue[400]),
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Icon(
                     changeIcon(1),
-                    size: 50,
+                    size: 70,
                     color: changeState(1),
                   ),
                   Icon(
                     changeIcon(2),
-                    size: 50,
+                    size: 70,
                     color: changeState(2),
                   ),
                   Icon(
                     changeIcon(3),
-                    size: 50,
+                    size: 70,
                     color: changeState(3),
                   ),
                   Icon(
                     changeIcon(4),
-                    size: 50,
+                    size: 70,
                     color: changeState(4),
                   ),
                   Icon(
                     changeIcon(5),
-                    size: 50,
+                    size: 70,
                     color: changeState(5),
                   ),
                 ],
               ),
               Text(
                 'Time: ' + _counter.toString(),
-                style: TextStyle(fontSize: 25, color: Colors.blueAccent[300]),
+                style: TextStyle(fontSize: 25, color: Colors.blue[900]),
               ),
               Text(
-                'Life: ' + life.toString(),
-                style: TextStyle(
-                  fontSize: 25,
-                  color: Colors.red[250],
-                ),
+                'Life Left: ' + life.toString(),
+                style: TextStyle(fontSize: 25, color: Colors.red[300]),
               ),
               Text(
-                'Tapped: ' + tapping.toString(),
-                style: TextStyle(fontSize: 30, color: Colors.pinkAccent[300]),
+                'You Have Tap: ' +
+                    tapping.toString() +
+                    ' Times in just 10 seconds',
+                style: TextStyle(fontSize: 30, color: Colors.pinkAccent[700]),
               ),
               ElevatedButton(
                   onPressed: startGame,
