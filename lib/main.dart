@@ -94,7 +94,10 @@ class _TouchApp extends State<MyApp> {
         appBar: AppBar(
           title: Text('TapTap'),
         ),
-        body: Center(
+        body: Container(
+          margin: EdgeInsets.all(30.0),
+          decoration:
+              BoxDecoration(color: Colors.orange, shape: BoxShape.circle),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
