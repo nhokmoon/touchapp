@@ -19,7 +19,7 @@ class _TouchApp extends State<MyApp> {
   int score = 0;
   int tapping = 0;
   int _counting = 10;
-  Timer? _timing;
+  Timer? _timer;
 
   @override
   void initState() {
@@ -31,7 +31,7 @@ class _TouchApp extends State<MyApp> {
     _counting = 10;
     score = 0;
     tapping = 0;
-    _timing = Timer.periodic(Duration(seconds: 1), (timer) {
+    _timer = Timer.periodic(Duration(seconds: 1), (timer) {
       setState(() {
         if (_counting > 0) {
           _counting--;
@@ -55,7 +55,7 @@ class _TouchApp extends State<MyApp> {
   }
 
   void _stopTimer() {
-    _timing?.cancel();
+    _timer?.cancel();
   }
 
   Color? changeState(int lifeactive) {
@@ -80,7 +80,7 @@ class _TouchApp extends State<MyApp> {
     life = 5;
     _counting = 10;
     score = 0;
-    _timing = Timer.periodic(Duration(seconds: 1), (timer) {
+    _timer = Timer.periodic(Duration(seconds: 1), (timer) {
       setState(() {});
     });
   }
