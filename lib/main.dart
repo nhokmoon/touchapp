@@ -18,8 +18,8 @@ class _TouchApp extends State<MyApp> {
   IconData icon = Icons.favorite;
   int score = 0;
   int tapping = 0;
-  int _counter = 10;
-  Timer? _timer;
+  int _counting = 10;
+  Timer? _timing;
 
   @override
   void initState() {
@@ -28,20 +28,23 @@ class _TouchApp extends State<MyApp> {
   }
 
   void _startTimer() {
-    _counter = 10;
+    _counting = 10;
     score = 0;
-    _timer = Timer.periodic(Duration(seconds: 1), (timer) {
+    tapping = 0;
+    _timing = Timer.periodic(Duration(seconds: 1), (timer) {
       setState(() {
-        if (_counter > 0) {
-          _counter--;
+        if (_counting > 0) {
+          _counting--;
         } else {
           if (tapping >= 10) {
-            _counter = 10;
+            _counting = 10;
             tapping = 0;
           } else {
             if (life > 1) {
               life--;
-              _counter = 10;
+              _counting = 10;
+            } else if (life == 1) {
+              life--;
             } else {
               _stopTimer();
             }
@@ -52,7 +55,7 @@ class _TouchApp extends State<MyApp> {
   }
 
   void _stopTimer() {
-    _timer?.cancel();
+    _timing?.cancel();
   }
 
   Color? changeState(int lifeactive) {
@@ -75,10 +78,11 @@ class _TouchApp extends State<MyApp> {
 
   void startagain() {
     life = 5;
-    _counter = 10;
+    _counting = 10;
     score = 0;
-    tapping = 0;
-    setState(() {});
+    _timing = Timer.periodic(Duration(seconds: 1), (timer) {
+      setState(() {});
+    });
   }
 
   void startGame() {
@@ -139,7 +143,7 @@ class _TouchApp extends State<MyApp> {
                 ],
               ),
               Text(
-                'Time: ' + _counter.toString(),
+                'Time: ' + _counting.toString(),
                 style: TextStyle(fontSize: 25, color: Colors.blue[900]),
               ),
               Text(
