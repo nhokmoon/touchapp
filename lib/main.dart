@@ -30,6 +30,7 @@ class _TouchApp extends State<MyApp> {
 
   void _startTimer() {
     _counter = 10;
+    score = 0;
     _timer = Timer.periodic(Duration(seconds: 1), (timer) {
       setState(() {
         if (_counter > 0) {
@@ -39,11 +40,10 @@ class _TouchApp extends State<MyApp> {
             _counter = 10;
             tapping = 0;
           } else {
-            if (life > 1) {
+            if (life > 0) {
               life--;
               _counter = 10;
-            } else {
-              life = 5;
+            } else if (life == 0) {
               _stopTimer();
             }
           }
@@ -72,6 +72,13 @@ class _TouchApp extends State<MyApp> {
       icon = Icons.favorite_border;
     }
     return icon;
+  }
+
+  void startagain() {
+    life = 5;
+    _counter = 10;
+    score = 0;
+    setState(() {});
   }
 
   void startGame() {
@@ -158,7 +165,12 @@ class _TouchApp extends State<MyApp> {
                   color: Colors.white,
                   size: 100.0,
                 ),
-              )
+              ),
+              ElevatedButton(
+                  onPressed: startagain,
+                  child: Text('Play Again',
+                      style: TextStyle(
+                          fontSize: 30, color: Colors.pinkAccent[700]))),
             ],
           ),
         ),
